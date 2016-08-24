@@ -3,6 +3,7 @@ package com.thingword.bean;
 public class UserLoginInfo {
 	private String return_msg;
 	private String return_code;
+	private String authority;
 	public String getReturn_msg() {
 		return return_msg;
 	}
@@ -14,6 +15,12 @@ public class UserLoginInfo {
 	}
 	public void setReturn_code(String return_code) {
 		this.return_code = return_code;
+	}
+	public String getAuthority() {
+		return authority;
+	}
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 
 }

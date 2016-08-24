@@ -12,10 +12,10 @@ import com.thingword.bean.MESSAGE;
 import com.thingword.bean.ReqUserLogin;
 import com.thingword.bean.Track;
 import com.thingword.bean.UserLoginInfo;
+import com.thingword.db.DBConnection;
 
 @Path("/json")
 public class JSONService {
-
 //	@GET
 //	@Path("/get")
 //	@Produces(MediaType.APPLICATION_JSON)
@@ -53,16 +53,12 @@ public class JSONService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public UserLoginInfo reqUserLogin(ReqUserLogin reqinfo) {
-		UserLoginInfo logininfo = new UserLoginInfo();
-		if(reqinfo.getUsername().equals("tcc")&&reqinfo.getPasswd().equals("123")){
-			logininfo.setReturn_code(MESSAGE.RETURN_SUCCESS);
-			logininfo.setReturn_msg(MESSAGE.LOGIN_SUCCESS);
-		}else{
-			logininfo.setReturn_code(MESSAGE.RETURN_FAIL);
-			logininfo.setReturn_msg(MESSAGE.LOGIN_FAIL);
+		try {
+			UserLoginInfo userLoginInfo = DBConnection.checkLogin(reqinfo);
+			return userLoginInfo;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return logininfo;
+		return null;
 	}
-	
-	
 }
